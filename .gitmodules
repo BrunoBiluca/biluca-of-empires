@@ -1,0 +1,3 @@
+[submodule "BilucaOfEmpires/Assets/UnityFoundation"]
+	path = BilucaOfEmpires/Assets/UnityFoundation
+	url = https://github.com/BrunoBiluca/UnityFoundation.git
