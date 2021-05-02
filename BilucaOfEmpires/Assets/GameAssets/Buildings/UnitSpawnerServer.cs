@@ -1,13 +1,15 @@
 using Mirror;
 using UnityEngine;
 
-public class UnitSpawnerServer : NetworkBehaviour {
+public class UnitSpawnerServer : NetworkBehaviour
+{
 
     [SerializeField] private GameObject unitPrefab;
     [SerializeField] private Transform spawnPosition;
 
     [Command]
-    public void CmdSpawnUnit() {
+    public void CmdSpawnUnit()
+    {
         var go = Instantiate(
             unitPrefab,
             spawnPosition.position,

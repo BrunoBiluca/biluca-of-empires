@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitSelectionMark : MonoBehaviour {
+public class UnitSelectionMark : MonoBehaviour
+{
 
     private SpriteRenderer sprite;
 
-    private void Start() {
+    private void Start()
+    {
         var unit = GetComponentInParent<Unit>();
         sprite = GetComponent<SpriteRenderer>();
 
