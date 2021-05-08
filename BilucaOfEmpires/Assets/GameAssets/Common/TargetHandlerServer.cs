@@ -3,19 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetServer : NetworkBehaviour
+public class TargetHandlerServer : NetworkBehaviour
 {
-    [SerializeField] private Targetable target;
+    [SerializeField] public Targetable Target { get; private set; }
 
     [Command]
     public void CmdSetTarget(Targetable newTarget)
     {
-        target = newTarget;
+        Target = newTarget;
     }
 
     [Server]
     public void ClearTarget()
     {
-        target = null;
+        Target = null;
     }
 }

@@ -14,6 +14,10 @@ public class UnitController : Singleton<UnitController>
 
         if(TryTarget(position)) { return; }
 
+        UnitSelectorHandler.Instance
+            .SelectedUnits
+            .ForEach(unit => unit.TargetHandler.ClearTarget());
+
         TryMove(position);
     }
 
@@ -26,14 +30,14 @@ public class UnitController : Singleton<UnitController>
 
         UnitSelectorHandler.Instance
             .SelectedUnits
-            .ForEach(unit => unit.Target.CmdSetTarget(target));
+            .ForEach(unit => unit.TargetHandler.CmdSetTarget(target));
 
         return true;
     }
 
     private void TryMove(Vector2 position)
     {
-        if(!PhysicsUtils.Raycast(position, out RaycastHit hit, layerMask)) 
+        if(!PhysicsUtils.Raycast(position, out RaycastHit hit, layerMask))
             return;
 
         UnitSelectorHandler.Instance

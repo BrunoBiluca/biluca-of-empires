@@ -6,7 +6,7 @@ public class Unit : NetworkBehaviour
 {
 
     public UnitMovement Movement { get; private set; }
-    public TargetServer Target { get; private set; }
+    public TargetHandlerServer TargetHandler { get; private set; }
 
     public EventHandler OnUnitSelected;
     public EventHandler OnUnitDeselected;
@@ -19,7 +19,7 @@ public class Unit : NetworkBehaviour
     private void Awake()
     {
         Movement = GetComponent<UnitMovement>();
-        Target = GetComponent<TargetServer>();
+        TargetHandler = GetComponent<TargetHandlerServer>();
     }
 
     [Client]

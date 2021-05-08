@@ -424,7 +424,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1240
+  m_Name: pb_Mesh25458
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1219,33 +1219,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: onlineScene
-      value: Assets/Scenes/Demo.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 5948056986080270347, guid: d54223c9b4f6f3c40a05f1f8e53ceb63, type: 3}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: playerSpawnMethod
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: unitSpawnerPrefab
-      value: 
-      objectReference: {fileID: 1992729732288368927, guid: bdb00041e1a84a349831c7f59db6cb57, type: 3}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: spawnPrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: spawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 4693603245858270400, guid: 5a73c1d7e0059b5438fbe75e51aac7eb, type: 3}
-    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
-      propertyPath: spawnPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 1992729732288368927, guid: bdb00041e1a84a349831c7f59db6cb57, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
