@@ -424,7 +424,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25458
+  m_Name: pb_Mesh-1246
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1106,6 +1106,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 808089537}
+    - target: {fileID: 1809931564648927866, guid: 7e02b8a627789f549854e858dbb81d8c, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809931564648927866, guid: 7e02b8a627789f549854e858dbb81d8c, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1809931564648927866, guid: 7e02b8a627789f549854e858dbb81d8c, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1809931564648927867, guid: 7e02b8a627789f549854e858dbb81d8c, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1219,5 +1231,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8668245692080115190, guid: c065a911cb163da47819e75e1aedfee9, type: 3}
+      propertyPath: spawnPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 7118817198282860475, guid: bd2e156336b86e344b01947bae87812d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c065a911cb163da47819e75e1aedfee9, type: 3}

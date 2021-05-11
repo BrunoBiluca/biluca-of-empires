@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TargetHandlerServer : NetworkBehaviour
 {
-    [SerializeField] public Targetable Target { get; private set; }
+    public Targetable Target { get; private set; }
 
     [Command]
     public void CmdSetTarget(Targetable newTarget)

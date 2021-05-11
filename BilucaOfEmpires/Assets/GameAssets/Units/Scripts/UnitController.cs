@@ -14,10 +14,6 @@ public class UnitController : Singleton<UnitController>
 
         if(TryTarget(position)) { return; }
 
-        UnitSelectorHandler.Instance
-            .SelectedUnits
-            .ForEach(unit => unit.TargetHandler.ClearTarget());
-
         TryMove(position);
     }
 
