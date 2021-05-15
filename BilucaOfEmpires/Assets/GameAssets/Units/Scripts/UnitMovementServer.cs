@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class UnitMovementServer : NetworkBehaviour
 {
-    [SerializeField] float chaseRange;
+    [SerializeField] float chaseRange = 15f;
     private Unit unit;
     private NavMeshAgent agent;
 

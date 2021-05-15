@@ -9,7 +9,7 @@ public class UnitFiringServer : NetworkBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform projectileSpawnPoint;
-    [SerializeField] private float fireRange = 5f;
+    [SerializeField] private float fireRange = 20f;
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private float rotationSpeed = 20f;
 

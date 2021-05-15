@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886719533108699257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.789, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 760518980197274447}
@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 7005270895572549850}
   - component: {fileID: -6248323529066950277}
   - component: {fileID: 3479287716642488656}
+  - component: {fileID: 4030775647775745671}
   - component: {fileID: -6991547687038843476}
   - component: {fileID: 9144608668643873077}
   - component: {fileID: 828871264210595319}
@@ -212,6 +213,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   aimPoint: {fileID: 2679906807998017207}
+--- !u!114 &4030775647775745671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4693603245858270400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f355ece597005942ab91abcb269683f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  maxHealth: 100
 --- !u!114 &-6991547687038843476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +283,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.7867565, y: 1, z: 1.614382}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &4884179033318942037
 PrefabInstance:
   m_ObjectHideFlags: 0
