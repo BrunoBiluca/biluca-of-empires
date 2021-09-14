@@ -1,13 +1,14 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameNetworkManager : NetworkManager {
-
+public class GameNetworkManager : NetworkManager
+{
     [SerializeField] private GameObject unitSpawnerPrefab;
+    [SerializeField] private GameOverHandler gameOverHandlerPrefab;
 
-    public override void OnServerAddPlayer(NetworkConnection conn) {
+    public override void OnServerAddPlayer(NetworkConnection conn)
+    {
         base.OnServerAddPlayer(conn);
 
         var spawnerInstance = Instantiate(
@@ -17,5 +18,16 @@ public class GameNetworkManager : NetworkManager {
         );
 
         NetworkServer.Spawn(spawnerInstance, conn);
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        Debug.Log("sdfsd");
+        if(SceneManager.GetActiveScene().name.StartsWith("Demo"))
+        {
+            var gameOverHandlerInstance = Instantiate(gameOverHandlerPrefab);
+
+            NetworkServer.Spawn(gameOverHandlerInstance.gameObject);
+        }
     }
 }
