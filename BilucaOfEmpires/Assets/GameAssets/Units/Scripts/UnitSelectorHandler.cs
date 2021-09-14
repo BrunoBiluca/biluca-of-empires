@@ -1,7 +1,6 @@
 using Assets.UnityFoundation.Code;
 using Mirror;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +20,18 @@ public class UnitSelectorHandler : Singleton<UnitSelectorHandler>
     {
         mainCamera = Camera.main;
         selectionArea.gameObject.SetActive(false);
+
+        Unit.AuthorityOnUnitDespawned += HandleAuthorityUnitDespawned;
+    }
+
+    private void OnDestroy()
+    {
+        Unit.AuthorityOnUnitDespawned -= HandleAuthorityUnitDespawned;
+    }
+
+    private void HandleAuthorityUnitDespawned(Unit unit)
+    {
+        SelectedUnits.Remove(unit);
     }
 
     private void Update()

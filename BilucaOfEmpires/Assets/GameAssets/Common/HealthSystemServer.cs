@@ -6,10 +6,19 @@ public class HealthSystemServer : NetworkBehaviour
 {
     [SerializeField] private int maxHealth = 100;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(HandleHealthUpdated))]
     private int currentHealth;
 
     public event Action ServerOnDie;
+
+    private IHealthBar healthBar;
+
+    public void Awake()
+    {
+        healthBar = transform.Find("health_bar")
+            .GetComponent<IHealthBar>();
+        healthBar.Setup(maxHealth);       
+    }
 
     public override void OnStartServer()
     {
@@ -33,4 +42,10 @@ public class HealthSystemServer : NetworkBehaviour
 
         Debug.Log("We Died");
     }
+
+    private void HandleHealthUpdated(int oldHealth, int newHealth)
+    {
+        healthBar.SetCurrentHealth(newHealth);
+    }
+
 }

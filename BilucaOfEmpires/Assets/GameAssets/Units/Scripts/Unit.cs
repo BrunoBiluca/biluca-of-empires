@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Unit : NetworkBehaviour
 {
-
     public UnitMovement Movement { get; private set; }
     public TargetHandlerServer TargetHandler { get; private set; }
 
@@ -20,6 +19,9 @@ public class Unit : NetworkBehaviour
     {
         Movement = GetComponent<UnitMovement>();
         TargetHandler = GetComponent<TargetHandlerServer>();
+
+        var healthSystem = GetComponent<HealthSystemServer>();
+        healthSystem.ServerOnDie += HandleServerOnDie;
     }
 
     [Client]
@@ -38,16 +40,14 @@ public class Unit : NetworkBehaviour
         OnUnitDeselected?.Invoke(this, EventArgs.Empty);
     }
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if(!isClientOnly || !hasAuthority) return;
-
         AuthorityOnUnitSpawned?.Invoke(this);
     }
 
     public override void OnStopClient()
     {
-        if(!isClientOnly || !hasAuthority) return;
+        if(!hasAuthority) return;
 
         AuthorityOnUnitDespawned?.Invoke(this);
     }
@@ -61,4 +61,11 @@ public class Unit : NetworkBehaviour
     {
         ServerOnUnitDespawned?.Invoke(this);
     }
+
+    [Server]
+    private void HandleServerOnDie()
+    {
+        NetworkServer.Destroy(gameObject);
+    }
+
 }
