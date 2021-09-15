@@ -6,6 +6,22 @@ public class UnitController : Singleton<UnitController>
 {
     [SerializeField] private LayerMask layerMask;
 
+    private void Start()
+    {
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
+    }
+
+    private void OnDestroy()
+    {
+        GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
+    }
+
+    private void ClientHandleGameOver(int winnerId)
+    {
+        enabled = false;
+    }
+
+
     void Update()
     {
         if(!Mouse.current.rightButton.wasPressedThisFrame) return;

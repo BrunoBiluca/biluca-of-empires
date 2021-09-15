@@ -5,30 +5,11 @@ using UnityEngine;
 
 public class GameOverHandler : NetworkBehaviour
 {
-    [SerializeField] private GameObject gameOverMenuPrefab;
+    public static event Action<int> ClientOnGameOver;
 
-    private GameOverMenu gameOverMenu;
+    public static event Action ServerOnGameOver;
 
     private readonly List<UnitHeadQuarters> headQuarters = new List<UnitHeadQuarters>();
-
-    private void Awake()
-    {
-        var go = Instantiate(gameOverMenuPrefab);
-        gameOverMenu = go.GetComponent<GameOverMenu>();
-        gameOverMenu.Setup("Leave Game", LeaveGame);
-    }
-
-    private void LeaveGame()
-    {
-        if(NetworkServer.active && NetworkClient.isConnected)
-        {
-            NetworkManager.singleton.StopHost();
-        }
-        else
-        {
-            NetworkManager.singleton.StopClient();
-        }
-    }
 
     #region Server
 
@@ -59,7 +40,9 @@ public class GameOverHandler : NetworkBehaviour
 
         int playerId = headQuarters[0].connectionToClient.connectionId;
 
-        RpcGameOver($"Player {playerId}");
+        RpcGameOver(playerId);
+
+        ServerOnGameOver?.Invoke();
     }
 
     #endregion
@@ -67,9 +50,9 @@ public class GameOverHandler : NetworkBehaviour
     #region Client
 
     [ClientRpc]
-    private void RpcGameOver(string winner)
+    private void RpcGameOver(int winnerId)
     {
-        gameOverMenu.Show($"Player {winner} won!");
+        ClientOnGameOver?.Invoke(winnerId);
     }
 
     #endregion

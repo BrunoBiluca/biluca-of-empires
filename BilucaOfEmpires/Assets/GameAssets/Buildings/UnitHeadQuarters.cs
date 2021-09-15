@@ -3,6 +3,7 @@ using System;
 
 public class UnitHeadQuarters : NetworkBehaviour
 {
+    public static event Action<int> ServerOnPlayerDie;
     public static event Action<UnitHeadQuarters> ServerOnBaseSpawned;
     public static event Action<UnitHeadQuarters> ServerOnBaseDespawned;
 
@@ -30,6 +31,7 @@ public class UnitHeadQuarters : NetworkBehaviour
     [Server]
     private void ServerHandleDie()
     {
+        ServerOnPlayerDie?.Invoke(connectionToClient.connectionId);
         NetworkServer.Destroy(gameObject);
     }
 

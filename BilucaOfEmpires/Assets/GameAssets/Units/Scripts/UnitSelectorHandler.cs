@@ -22,11 +22,13 @@ public class UnitSelectorHandler : Singleton<UnitSelectorHandler>
         selectionArea.gameObject.SetActive(false);
 
         Unit.AuthorityOnUnitDespawned += HandleAuthorityUnitDespawned;
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
     }
 
     private void OnDestroy()
     {
         Unit.AuthorityOnUnitDespawned -= HandleAuthorityUnitDespawned;
+        GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
 
     private void HandleAuthorityUnitDespawned(Unit unit)
@@ -134,4 +136,10 @@ public class UnitSelectorHandler : Singleton<UnitSelectorHandler>
             }
         }
     }
+
+    private void ClientHandleGameOver(int winnerId)
+    {
+        enabled = false;
+    }
+
 }
