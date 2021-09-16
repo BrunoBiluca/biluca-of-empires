@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,5 +52,11 @@ public class PlayerClient : NetworkBehaviour
         if(!hasAuthority) { return; }
 
         clientUnits.Remove(unit);
+    }
+
+    [Command]
+    public void CmdTryPlaceBuilding(int id, Vector3 point)
+    {
+        playerServer.TryPaceBuilding(id, point);
     }
 }

@@ -64,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerUnits: []
+  clientUnits: []
 --- !u!114 &-3242286598743035414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,4 +79,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerServerUnits: []
+  buildings:
+  - {fileID: 7514804775311567711, guid: 53012725988f9f04494926864c5e11d1, type: 3}
