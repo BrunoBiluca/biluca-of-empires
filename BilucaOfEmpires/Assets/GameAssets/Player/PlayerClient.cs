@@ -1,8 +1,6 @@
 using Mirror;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerClient : NetworkBehaviour
@@ -14,6 +12,10 @@ public class PlayerClient : NetworkBehaviour
             return playerServer.Units;
         }
     }
+
+    public int Resources => playerServer.Resources;
+
+    public event Action<int> ClientOnResourcesUpdated;
 
     [SerializeField] private List<Unit> clientUnits = new List<Unit>();
 
@@ -38,6 +40,13 @@ public class PlayerClient : NetworkBehaviour
 
         Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
         Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
+    }
+
+    [Command]
+    public void IncreaseResources(int addResources)
+    {
+        playerServer.IncreaseResources(addResources);
+        ClientOnResourcesUpdated?.Invoke(Resources);
     }
 
     private void AuthorityHandleUnitSpawned(Unit unit)

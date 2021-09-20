@@ -7,8 +7,12 @@ public class PlayerServer : NetworkBehaviour
 {
     [SerializeField] private Building[] buildings;
 
+    [SyncVar] private int resources = 500;
+
     private readonly List<Unit> serverUnits = new List<Unit>();
     private readonly List<Building> serverBuildings = new List<Building>();
+
+    public int Resources => resources;
 
     public List<Unit> Units => serverUnits;
 
@@ -30,6 +34,12 @@ public class PlayerServer : NetworkBehaviour
 
         Building.ServerOnBuildingSpawned += ServerBuildingSpawnHandler;
         Building.ServerOnBuildingSpawned += ServerBuildingDespawnHandler;
+    }
+
+    [Server]
+    public void IncreaseResources(int addResources)
+    {
+        resources += addResources;
     }
 
     private void ServerHandleUnitSpawned(Unit unit)

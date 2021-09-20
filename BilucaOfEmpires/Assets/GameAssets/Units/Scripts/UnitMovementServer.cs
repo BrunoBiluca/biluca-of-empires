@@ -63,8 +63,8 @@ public class UnitMovementServer : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void CmdMove(Vector3 position)
+    [Server]
+    public void Move(Vector3 position)
     {
         unit.TargetHandler.ClearTarget();
 

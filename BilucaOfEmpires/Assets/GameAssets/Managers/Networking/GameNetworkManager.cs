@@ -22,7 +22,7 @@ public class GameNetworkManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        Debug.Log("sdfsd");
+        Debug.Log("OnServerSceneChanged não está executando");
         if(SceneManager.GetActiveScene().name.StartsWith("Demo"))
         {
             var gameOverHandlerInstance = Instantiate(gameOverHandlerPrefab);

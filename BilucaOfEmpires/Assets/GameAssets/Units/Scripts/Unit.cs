@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Unit : NetworkBehaviour
 {
+    [SerializeField] private int resourcesCost = 20;
+
+    public int ResourcesCost => resourcesCost;
+
     public UnitMovement Movement { get; private set; }
     public TargetHandlerServer TargetHandler { get; private set; }
 

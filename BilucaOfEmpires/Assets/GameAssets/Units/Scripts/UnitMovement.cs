@@ -12,7 +12,8 @@ public class UnitMovement : NetworkBehaviour {
     }
 
     [ClientCallback]
+    [Command]
     public void Move(Vector3 point) {
-        server.CmdMove(point);
+        server.Move(point);
     }
 }
