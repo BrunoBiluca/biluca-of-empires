@@ -24,6 +24,8 @@ public class PlayerClient : NetworkBehaviour
     private void Start()
     {
         playerServer = GetComponent<PlayerServer>();
+        playerServer.ServerOnResourcesUpdated 
+            += (resources) => ClientOnResourcesUpdated?.Invoke(Resources);
     }
 
     public override void OnStartAuthority()
@@ -66,6 +68,9 @@ public class PlayerClient : NetworkBehaviour
     [Command]
     public void CmdTryPlaceBuilding(int id, Vector3 point)
     {
-        playerServer.TryPaceBuilding(id, point);
+        playerServer.TryPlaceBuilding(id, point);
     }
+
+    public bool CanBuild(Building building, Vector3 point) 
+        => playerServer.CanBuild(building, point);
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2768354027849698075}
   - component: {fileID: 3784185492512538300}
   - component: {fileID: 7155417584474230193}
+  - component: {fileID: 930999587237471021}
   m_Layer: 0
   m_Name: projectile_pf
   m_TagString: Untagged
@@ -148,3 +149,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &930999587237471021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7118817198282860475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a01a8ffebf0464bac79534572d238e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  colorRenderers:
+  - {fileID: 2768354027849698075}

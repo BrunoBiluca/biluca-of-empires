@@ -23,19 +23,19 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Update()
     {
-        if (player == null)
+        if(player == null)
         {
             player = NetworkClient.connection.identity.GetComponent<PlayerClient>();
         }
 
-        if (buildingPreviewInstance == null) { return; }
+        if(buildingPreviewInstance == null) { return; }
 
         UpdateBuildingPreview();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Left) { return; }
+        if(eventData.button != PointerEventData.InputButton.Left) { return; }
 
         buildingPreviewInstance = Instantiate(building.Preview);
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
@@ -45,9 +45,9 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (buildingPreviewInstance == null) { return; }
+        if(buildingPreviewInstance == null) { return; }
 
-        if (PhysicsUtils.RaycastMousePosition(out RaycastHit hit, floorMask))
+        if(PhysicsUtils.RaycastMousePosition(out RaycastHit hit, floorMask))
         {
             player.CmdTryPlaceBuilding(building.Id, hit.point);
         }
@@ -57,12 +57,17 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void UpdateBuildingPreview()
     {
-        if (!PhysicsUtils.RaycastMousePosition(out RaycastHit hit, floorMask))
+        if(!PhysicsUtils.RaycastMousePosition(out RaycastHit hit, floorMask))
             return;
 
         buildingPreviewInstance.transform.position = hit.point;
 
         if(!buildingPreviewInstance.activeSelf)
             buildingPreviewInstance.SetActive(true);
+
+        var color = player.CanBuild(building, hit.point) ? Color.green : Color.red;
+
+        buildingRendererInstance.material.color = color;
+
     }
 }

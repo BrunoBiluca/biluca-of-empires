@@ -11,6 +11,14 @@ public class GameNetworkManager : NetworkManager
     {
         base.OnServerAddPlayer(conn);
 
+        var player = conn.identity.GetComponent<PlayerServer>();
+
+        player.TeamColor = new Color(
+            UnityEngine.Random.Range(0f, 1f),
+            UnityEngine.Random.Range(0f, 1f),
+            UnityEngine.Random.Range(0f, 1f)
+        );
+
         var spawnerInstance = Instantiate(
             unitSpawnerPrefab,
             conn.identity.transform.position,
