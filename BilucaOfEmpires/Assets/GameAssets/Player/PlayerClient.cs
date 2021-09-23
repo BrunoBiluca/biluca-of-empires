@@ -1,3 +1,4 @@
+using Assets.UnityFoundation.UI.Minimap;
 using Mirror;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,16 @@ public class PlayerClient : NetworkBehaviour
 
     private PlayerServer playerServer;
 
+    private MinimapController minimapController;
+
     private void Start()
     {
         playerServer = GetComponent<PlayerServer>();
         playerServer.ServerOnResourcesUpdated 
             += (resources) => ClientOnResourcesUpdated?.Invoke(Resources);
+
+        minimapController = FindObjectOfType<MinimapController>();
+        minimapController.TargetTransform = transform.Find("main_virutal_camera");
     }
 
     public override void OnStartAuthority()
