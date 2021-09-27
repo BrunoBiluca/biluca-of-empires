@@ -13,19 +13,13 @@ public class ResourcesUI : MonoBehaviour
         resourcesText = transform.Find("text").GetComponent<TextMeshProUGUI>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if(player == null)
-        {
-            player = NetworkClient.connection.identity.GetComponent<PlayerClient>();
+        player = NetworkClient.connection.identity.GetComponent<PlayerClient>();
 
-            if(player != null)
-            {
-                ClientHandleResourcesUpdated(player.Resources);
+        ClientHandleResourcesUpdated(player.Resources);
 
-                player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
-            }
-        }
+        player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
     }
 
     private void OnDestroy()

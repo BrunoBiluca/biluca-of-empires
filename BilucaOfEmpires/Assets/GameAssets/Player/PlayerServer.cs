@@ -1,7 +1,9 @@
+using Assets.UnityFoundation.UI.Minimap;
 using Mirror;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerServer : NetworkBehaviour
 {
@@ -9,13 +11,15 @@ public class PlayerServer : NetworkBehaviour
     [SerializeField] private float buildingRangeLimit = 5f;
     [SerializeField] private Building[] buildings;
 
-    [SyncVar] private int resources = 500;
-
     private readonly List<Unit> serverUnits = new List<Unit>();
     private readonly List<Building> serverBuildings = new List<Building>();
 
     public event Action<int> ServerOnResourcesUpdated;
+    public static event Action OnPlayerInfoUpdated;
+    public static event Action OnServerPlayerInfoUpdated;
 
+    [SyncVar]
+    private int resources = 500;
     public int Resources => resources;
 
     public List<Unit> Units => serverUnits;
@@ -24,6 +28,42 @@ public class PlayerServer : NetworkBehaviour
 
     public Color TeamColor { get; set; }
 
+    [SyncVar]
+    private bool isPartyOwner;
+    public bool IsPartyOwner {
+        get { return isPartyOwner; }
+        set {
+            if(!hasAuthority) return;
+
+            isPartyOwner = value;
+            OnPlayerInfoUpdated?.Invoke();
+        }
+    }
+
+    [SyncVar]
+    public string playerName;
+    public string PlayerName {
+        get => playerName;
+        set {
+            playerName = value;
+            OnPlayerInfoUpdated?.Invoke();
+        }
+    }
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += (scene, mode) => SetupGameplay();
+    }
+
+    public void SetupGameplay()
+    {
+        if(!SceneManager.GetActiveScene().name.StartsWith("desert"))
+            return;
+
+        FindObjectOfType<MinimapController>()
+            .TargetTransform = transform.Find("main_virtual_camera");
+    }
+
     public override void OnStartServer()
     {
         Unit.ServerOnUnitSpawned += ServerHandleUnitSpawned;
@@ -31,6 +71,12 @@ public class PlayerServer : NetworkBehaviour
 
         Building.ServerOnBuildingSpawned += ServerBuildingSpawnHandler;
         Building.ServerOnBuildingSpawned += ServerBuildingDespawnHandler;
+
+        OnPlayerInfoUpdated += TriggerLobbyMenuUpdate;
+
+        SetupGameplay();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public override void OnStopServer()
@@ -40,6 +86,23 @@ public class PlayerServer : NetworkBehaviour
 
         Building.ServerOnBuildingSpawned += ServerBuildingSpawnHandler;
         Building.ServerOnBuildingSpawned += ServerBuildingDespawnHandler;
+    }
+
+    public void PlayerDisconnected()
+    {
+        OnPlayerInfoUpdated?.Invoke();
+    }
+
+    [Server]
+    public void TriggerLobbyMenuUpdate()
+    {
+        RPCLobbyMenuUpdateOnClient();
+    }
+
+    [ClientRpc]
+    private void RPCLobbyMenuUpdateOnClient()
+    {
+        OnServerPlayerInfoUpdated?.Invoke();
     }
 
     [Server]
@@ -137,4 +200,11 @@ public class PlayerServer : NetworkBehaviour
 
     }
 
+    [Command]
+    public void CmdStartGame()
+    {
+        if(!isPartyOwner) { return; }
+
+        ((GameNetworkManager)NetworkManager.singleton).StartGame();
+    }
 }

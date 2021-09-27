@@ -1,4 +1,3 @@
-using Assets.UnityFoundation.UI.Minimap;
 using Mirror;
 using System;
 using System.Collections.Generic;
@@ -22,16 +21,11 @@ public class PlayerClient : NetworkBehaviour
 
     private PlayerServer playerServer;
 
-    private MinimapController minimapController;
-
     private void Start()
     {
-        playerServer = GetComponent<PlayerServer>();
-        playerServer.ServerOnResourcesUpdated 
+        playerServer = gameObject.GetComponent<PlayerServer>();
+        playerServer.ServerOnResourcesUpdated
             += (resources) => ClientOnResourcesUpdated?.Invoke(Resources);
-
-        minimapController = FindObjectOfType<MinimapController>();
-        minimapController.TargetTransform = transform.Find("main_virutal_camera");
     }
 
     public override void OnStartAuthority()
@@ -42,9 +36,32 @@ public class PlayerClient : NetworkBehaviour
         Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
     }
 
+    public override void OnStartClient()
+    {
+        if(NetworkServer.active) 
+            return;
+
+        DontDestroyOnLoad(gameObject);
+
+        PlayerServer player = gameObject.GetComponent<PlayerServer>();
+        ((GameNetworkManager)NetworkManager.singleton)
+            .Players
+            .Add(player);
+    }
+
+
     public override void OnStopClient()
     {
-        if(!isClientOnly && !hasAuthority) { return; }
+        PlayerServer player = gameObject.GetComponent<PlayerServer>();
+        player.PlayerDisconnected();
+
+        if(!isClientOnly) { return; }
+
+        ((GameNetworkManager)NetworkManager.singleton)
+            .Players
+            .Remove(gameObject.GetComponent<PlayerServer>());
+
+        if(!hasAuthority) { return; }
 
         Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
         Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
@@ -77,6 +94,6 @@ public class PlayerClient : NetworkBehaviour
         playerServer.TryPlaceBuilding(id, point);
     }
 
-    public bool CanBuild(Building building, Vector3 point) 
+    public bool CanBuild(Building building, Vector3 point)
         => playerServer.CanBuild(building, point);
 }

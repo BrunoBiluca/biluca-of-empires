@@ -23,6 +23,8 @@ public class UnitSelectorHandler : Singleton<UnitSelectorHandler>
 
         Unit.AuthorityOnUnitDespawned += HandleAuthorityUnitDespawned;
         GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
+
+        player = NetworkClient.connection?.identity.GetComponent<PlayerClient>();
     }
 
     private void OnDestroy()
@@ -38,11 +40,6 @@ public class UnitSelectorHandler : Singleton<UnitSelectorHandler>
 
     private void Update()
     {
-        if(player == null)
-        {
-            player = NetworkClient.connection?.identity.GetComponent<PlayerClient>();
-        }
-
         if(Mouse.current.leftButton.wasPressedThisFrame)
         {
             if(!Keyboard.current.leftShiftKey.isPressed)

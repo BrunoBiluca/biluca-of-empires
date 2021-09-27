@@ -19,16 +19,14 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             .GetComponent<Image>().sprite = building.Icon;
         transform.Find("text")
             .GetComponent<TextMeshProUGUI>().text = building.Price.ToString();
+
+        player = NetworkClient.connection.identity.GetComponent<PlayerClient>();
     }
 
     private void Update()
     {
-        if(player == null)
-        {
-            player = NetworkClient.connection.identity.GetComponent<PlayerClient>();
-        }
-
-        if(buildingPreviewInstance == null) { return; }
+        if(buildingPreviewInstance == null) 
+            return;
 
         UpdateBuildingPreview();
     }
@@ -36,7 +34,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         if(eventData.button != PointerEventData.InputButton.Left) { return; }
-
         buildingPreviewInstance = Instantiate(building.Preview);
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();
 

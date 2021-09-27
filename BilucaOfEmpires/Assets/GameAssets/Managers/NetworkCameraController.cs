@@ -9,11 +9,14 @@ public class NetworkCameraController : NetworkBehaviour
     [SerializeField] private Vector2 moveLimitsX;
     [SerializeField] private Vector2 moveLimitsZ;
 
+    public Transform cameraTransform;
+
     private CameraMovementXZ cameraMovement;
 
-    public override void OnStartServer()
+    private void Start()
     {
-        cameraMovement = new CameraMovementXZ(transform.Find("main_virutal_camera")) {
+        cameraTransform = transform.Find("main_virtual_camera");
+        cameraMovement = new CameraMovementXZ(cameraTransform) {
             CameraSpeed = cameraSpeed,
             EdgeOffset = edgeOffset,
             MoveLimitsX = moveLimitsX,
@@ -27,7 +30,16 @@ public class NetworkCameraController : NetworkBehaviour
         if(!hasAuthority || !Application.isFocused)
             return;
 
-        cameraMovement.OnUpdate();
+        if(cameraTransform == null)
+        {
+            cameraTransform = transform.Find("main_virtual_camera");
+            cameraMovement.SetTargetTransform(cameraTransform);
+        }
+        else
+        {
+            cameraMovement.OnUpdate();
+        }
+        
     }
 
 }
